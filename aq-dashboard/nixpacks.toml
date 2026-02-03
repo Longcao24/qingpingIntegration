@@ -1,0 +1,19 @@
+# Nixpacks configuration for Coolify deployment
+# This forces Node.js mode and uses our Express server instead of Caddy
+
+[variables]
+NIXPACKS_NODE_VERSION = "20"
+# Disable SPA mode to prevent Caddy from being used
+NIXPACKS_NO_MUSL = "1"
+
+[phases.setup]
+nixPkgs = ["nodejs_20", "npm-9_x"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "node serve.js"
